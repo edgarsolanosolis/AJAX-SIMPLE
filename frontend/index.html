@@ -7,13 +7,33 @@
     <title>AJAX SIMPLE</title>
 </head>
 <body>
-    <button onclick= "helloWorld()">
-        Hello World
+    <button onclick= "sendRequestGet()">
+        Send Ajax Request GET
+    </button> 
+    <button onclick = "sendRequestPost()">
+        Send Ajax Request POST
     </button>
 
+    <h1 id="title"></h1>
+
     <script>
-        function helloWorld(){
-            console.log('MENSAJE HELLO WORLD')
+        function sendRequestGet(){
+            var elObjeto = new XMLHttpRequest();
+            elObjeto.open('GET', '../backend/backendGET.php', true);
+            elObjeto.setRequestHeader('Content-Type', 'application/x-ww-form-urlencoded');
+            elObjeto.onreadystatechange = function (){
+                console.log(elObjeto.responseText);
+            }
+            elObjeto.send();
+        }
+        function sendRequestPost(){
+            var elObjeto = new XMLHttpRequest();
+            elObjeto.open('POST', '../backend/backendPOST.php', true);
+            elObjeto.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            elObjeto.onreadystatechange = function (){
+                document.getElementById('title').innerHTML = elObjeto.responseText;
+            }
+            elObjeto.send('username=EDGAR');
         }
     </script>
 
