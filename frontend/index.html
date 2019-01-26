@@ -6,34 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AJAX SIMPLE</title>
 </head>
-<body>
+<body>  <!– El navegador tiene algo que se llama formularios, pero el problema con esto es que cada vez que damos click la pagina se refrezca en cambio con Ajax no –>
     <button onclick= "sendRequestGet()">
-        Send Ajax Request GET
+        Send Ajax Request GET                   <!– Mensaje que sale cuando se presiona el boton –>
     </button> 
     <button onclick = "sendRequestPost()">
-        Send Ajax Request POST
+        Send Ajax Request POST                  <!– Mensaje que sale cuando se presiona el boton –>
     </button>
 
-    <h1 id="title"></h1>
-
-    <script>
-        function sendRequestGet(){
-            var elObjeto = new XMLHttpRequest();
-            elObjeto.open('GET', '../backend/backendGET.php', true);
-            elObjeto.setRequestHeader('Content-Type', 'application/x-ww-form-urlencoded');
-            elObjeto.onreadystatechange = function (){
-                console.log(elObjeto.responseText);
+    <h1 id="title"></h1>                        <!– Crear Titulo –>
+    <script> //Esto ya es Javascript que lo usamos para pedirle los datos al backend
+        function sendRequestGet(){ //Funcion enviar peticion get. SOLO OBTENER DATOS
+            var elObjeto = new XMLHttpRequest(); //Instancia para el metodo XMLHttpRequest que me permite enviar y recibir datos del backend
+            elObjeto.open('GET', '../backend/backendGET.php', true); //Metodo que pide datos de una direccion web
+            elObjeto.setRequestHeader('Content-Type', 'application/x-ww-form-urlencoded'); //establece las cabeceras, x-ww-form-urlencoded codifica los datos que son enviados al servidor desde el navegador
+            elObjeto.onreadystatechange = function (){ //metodo que funciona para ver lo que recibimos desde el navegador
+                console.log(elObjeto.responseText); //la rspuesta que nos manda el backend vamos a verla en forma de texto
             }
-            elObjeto.send();
+            elObjeto.send(); //para enviar la peticion del objeto que acabamos de hacer
         }
-        function sendRequestPost(){
+        function sendRequestPost(){ //Funcion enviar peticion post. OBTENER DATOS y ENVIAR DATOS DESDE LA INTERFAZ
             var elObjeto = new XMLHttpRequest();
             elObjeto.open('POST', '../backend/backendPOST.php', true);
             elObjeto.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             elObjeto.onreadystatechange = function (){
-                document.getElementById('title').innerHTML = elObjeto.responseText;
+                document.getElementById('title').innerHTML = elObjeto.responseText; //GRACIAS A ESTO SE MUESTRA EL TITULO DESDE EL BACKEND
             }
-            elObjeto.send('username=EDGAR');
+            elObjeto.send('username=EDGAR'); //este es el dato que manda el navegador.
         }
     </script>
 
